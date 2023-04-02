@@ -4,6 +4,7 @@ import { useTagsContext } from '../hooks/useTagsContext';
 // components
 import TagList from '../components/TagList';
 import TagForm from '../components/TagForm';
+import ProjectList from '../components/ProjectList';
 
 const Home = () => {
   const { tags, dispatch } = useTagsContext();
@@ -23,8 +24,13 @@ const Home = () => {
 
   return (
     <div className="home">
-      <div className="tags">{tags && tags.map((tag) => <TagList tag={tag} key={tag._id} />)}</div>
-      <TagForm />
+      <div className="tags">
+        {tags && tags.map((tag) => <TagList tag={tag} key={tag._id} />)}
+        <TagForm />
+      </div>
+      <div className="projects">
+        <ProjectList />
+      </div>
     </div>
   );
 };
