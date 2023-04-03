@@ -1,18 +1,18 @@
 // components
 import TagList from '../components/TagList';
 import TagForm from '../components/TagForm';
-import ProjectList from '../components/ProjectList';
+import ProjectForm from '../components/ProjectForm';
 
-const Home = () => {
+const NewProject = () => {
   return (
-    <div className="home">
+    <div className="new-project">
       <TagList />
       <TagForm />
       <div className="projects">
-        <ProjectList />
+        <ProjectForm />
       </div>
     </div>
   );
 };
 
-export default Home;
+export default NewProject;

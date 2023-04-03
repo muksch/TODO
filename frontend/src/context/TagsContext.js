@@ -26,9 +26,9 @@ export const tagsReducer = (state, action) => {
 };
 
 export const TagsContextProvider = ({ children }) => {
-  const [state, dispatch] = useReducer(tagsReducer, {
+  const [state, dispatchTags] = useReducer(tagsReducer, {
     tags: null,
   });
 
-  return <TagsContext.Provider value={{ ...state, dispatch }}>{children}</TagsContext.Provider>;
+  return <TagsContext.Provider value={{ ...state, dispatchTags }}>{children}</TagsContext.Provider>;
 };

@@ -19,11 +19,11 @@ const getProject = async (req, res) => {
 
 // create a new project
 const createProject = async (req, res) => {
-  const { title, description, tags } = req.body;
+  const { projectTitle, projectDescription, projectTags } = req.body;
 
   let emptyFields = [];
 
-  if (!title) {
+  if (!projectTitle) {
     emptyFields.push('title');
   }
   if (emptyFields.length > 0) {
@@ -32,7 +32,7 @@ const createProject = async (req, res) => {
 
   // add doc to DB
   try {
-    const project = await Project.create({ title, description, tags });
+    const project = await Project.create({ projectTitle, projectDescription, projectTags });
     res.status(200).json(project);
   } catch (error) {
     res.status(400).json({ error: error.message });

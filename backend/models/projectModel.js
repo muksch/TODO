@@ -2,18 +2,32 @@ const mongoose = require('mongoose');
 
 const Schema = mongoose.Schema;
 
-const projectSchema = new Schema(
+const projectTagSchema = new Schema(
   {
     title: {
       type: String,
       required: true,
     },
-    description: {
+    color: {
+      type: String,
+      required: true,
+    },
+  },
+  { timestamps: true }
+);
+
+const projectSchema = new Schema(
+  {
+    projectTitle: {
+      type: String,
+      required: true,
+    },
+    projectDescription: {
       type: String,
       required: false,
     },
-    Tags: {
-      type: Array,
+    projectTags: {
+      type: [projectTagSchema],
       required: false,
     },
   },

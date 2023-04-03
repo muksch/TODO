@@ -1,8 +1,7 @@
 import { useProjectsContext } from '../hooks/useProjectsContext';
 
 const ProjectDetail = ({ project }) => {
-  const { dispatch } = useProjectsContext();
-
+  const { dispatchProjects } = useProjectsContext();
   const removeProjectHandle = async (e) => {
     const response = await fetch(`api/projects/${project._id}`, {
       method: 'DELETE',
@@ -10,31 +9,35 @@ const ProjectDetail = ({ project }) => {
 
     if (response.ok) {
       const json = await response.json();
-      dispatch({ type: 'DELETE_PROJECT', payload: json });
+      dispatchProjects({ type: 'DELETE_PROJECT', payload: json });
     }
   };
 
-  const removeTagHandle = async (e) => {
+  const removeTagHandle = async (id) => {
+    const updatedTags = project.projectTags.filter((t) => t._id !== id);
     const response = await fetch(`api/projects/${project._id}`, {
       method: 'PATCH',
+      body: {
+        projectTags: updatedTags,
+      },
     });
 
     if (response.ok) {
       const json = await response.json();
-      dispatch({ type: 'UPDATE_PROJECT', payload: json });
+      dispatchProjects({ type: 'UPDATE_PROJECT', payload: json });
     }
   };
 
   return (
     <div className="project-details">
-      <h4>{project.title}</h4>
-      <p className="project-description">{project.description}</p>
-      <div className="project-tags">
-        {project.tags &&
-          project.tags.map((tag) => (
-            <div className="tag-details" style={{ background: tag.color }}>
-              <h4>{tag.title}</h4>
-              <span onClick={removeTagHandle} className="material-icons">
+      <h4>{project.projectTitle}</h4>
+      <p className="project-description">{project.projectDescription}</p>
+      <div className="project-tags tags">
+        {project.projectTags &&
+          project.projectTags.map((projectTag) => (
+            <div className="tag-details" style={{ background: projectTag.color }} key={projectTag._id}>
+              <h4>{projectTag.title}</h4>
+              <span onClick={() => removeTagHandle(projectTag._id)} className="material-icons">
                 close
               </span>
             </div>

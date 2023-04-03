@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useTagsContext } from '../hooks/useTagsContext';
 
 const TagForm = () => {
-  const { tags, dispatch } = useTagsContext();
+  const { tags, dispatchTags } = useTagsContext();
 
   const [title, setTitle] = useState('');
   const [order, setOrder] = useState('');
@@ -54,7 +54,7 @@ const TagForm = () => {
       setTitle('');
       setOrder('');
       setColor('');
-      dispatch({ type: 'CREATE_TAG', payload: json });
+      dispatchTags({ type: 'CREATE_TAG', payload: json });
     }
   };
 

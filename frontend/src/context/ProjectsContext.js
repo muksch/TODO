@@ -26,9 +26,9 @@ export const projectsReducer = (state, action) => {
 };
 
 export const ProjectsContextProvider = ({ children }) => {
-  const [state, dispatch] = useReducer(projectsReducer, {
+  const [state, dispatchProjects] = useReducer(projectsReducer, {
     projects: null,
   });
 
-  return <ProjectsContext.Provider value={{ ...state, dispatch }}>{children}</ProjectsContext.Provider>;
+  return <ProjectsContext.Provider value={{ ...state, dispatchProjects }}>{children}</ProjectsContext.Provider>;
 };
