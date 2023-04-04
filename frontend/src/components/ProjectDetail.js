@@ -30,6 +30,7 @@ const ProjectDetail = ({ project }) => {
 
   return (
     <div className="project-details">
+      {console.log('render')}
       <h4>{project.projectTitle}</h4>
       <p className="project-description">{project.projectDescription}</p>
       <div className="project-tags tags">

@@ -53,9 +53,9 @@ const deleteProject = async (req, res) => {
 // update project
 const updateProject = async (req, res) => {
   const { id } = req.params;
-  const { title, description, tags } = req.body;
+  const { projectTitle, projectDescription, projectTags } = req.body;
   try {
-    const project = await Project.findByIdAndUpdate(id, { title, description, tags }, { new: true });
+    const project = await Project.findByIdAndUpdate(id, { projectTitle, projectDescription, projectTags }, { new: true });
     if (!project) {
       throw new Error(`Project with ID ${id} not found.`);
     }
