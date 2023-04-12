@@ -1,27 +1,39 @@
-import { useEffect } from 'react';
 import { useProjectsContext } from '../hooks/useProjectsContext';
-import ProjectDetail from './ProjectDetail';
 
 const ProjectList = () => {
   const { projects, dispatchProjects } = useProjectsContext();
+  const removeProjectHandle = async (project) => {
+    const response = await fetch(`api/projects/${project._id}`, {
+      method: 'DELETE',
+    });
 
-  useEffect(() => {
-    const fetchProjects = async () => {
-      const response = await fetch('/api/projects');
+    if (response.ok) {
       const json = await response.json();
-
-      if (response.ok) {
-        dispatchProjects({ type: 'SET_PROJECTS', payload: json });
-      }
-    };
-
-    fetchProjects();
-  }, [dispatchProjects]);
+      dispatchProjects({ type: 'DELETE_PROJECT', payload: json });
+    }
+  };
 
   return (
     <div className="project-list">
       <h2>My projects</h2>
-      {projects && projects.map((project) => <ProjectDetail project={project} key={project._id} />)}
+      {projects &&
+        projects.map((project) => (
+          <div className="project-details">
+            <h4>{project.projectTitle}</h4>
+            <p className="project-description">{project.projectDescription}</p>
+            <div className="project-tags tags">
+              {project.projectTags &&
+                project.projectTags.map((projectTag) => (
+                  <div className="tag-details" style={{ background: projectTag.color }} key={projectTag._id}>
+                    <h4>{projectTag.title}</h4>
+                  </div>
+                ))}
+            </div>
+            <span onClick={() => removeProjectHandle(project)} className="material-icons">
+              close
+            </span>
+          </div>
+        ))}
     </div>
   );
 };

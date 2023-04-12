@@ -14,11 +14,12 @@ const ProjectDetail = ({ project }) => {
   };
 
   const removeTagHandle = async (id) => {
-    const updatedTags = project.projectTags.filter((t) => t._id !== id);
+    project.projectTags = project.projectTags.filter((t) => t._id !== id);
     const response = await fetch(`api/projects/${project._id}`, {
       method: 'PATCH',
-      body: {
-        projectTags: updatedTags,
+      body: JSON.stringify(project),
+      headers: {
+        'Content-Type': 'application/json',
       },
     });
 
@@ -30,7 +31,6 @@ const ProjectDetail = ({ project }) => {
 
   return (
     <div className="project-details">
-      {console.log('render')}
       <h4>{project.projectTitle}</h4>
       <p className="project-description">{project.projectDescription}</p>
       <div className="project-tags tags">
