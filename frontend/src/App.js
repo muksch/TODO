@@ -3,10 +3,10 @@ import { useEffect } from 'react';
 
 // pages & components
 import Home from './pages/Home';
-import NewProject from './pages/NewProject';
 import Header from './components/Header';
-import ProjectDetailPage from './pages/ProjectDetailPage';
+import Project from './pages/Project';
 import { useProjectsContext } from './hooks/useProjectsContext';
+import Dashboard from './pages/Dashboard';
 
 function App() {
   // Get projects
@@ -30,8 +30,8 @@ function App() {
         <Header />
         <div className="pages">
           <Routes>
-            <Route path="/project/:projectId" element={<ProjectDetailPage />} />
-            <Route path="/new-project" element={<NewProject />} />
+            <Route path="/project/:projectId" element={<Project />} />
+            <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/" element={<Home />} />
           </Routes>
         </div>

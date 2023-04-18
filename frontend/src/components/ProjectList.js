@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import { useProjectsContext } from '../hooks/useProjectsContext';
 
 const ProjectList = () => {
@@ -18,21 +19,23 @@ const ProjectList = () => {
       <h2>My projects</h2>
       {projects &&
         projects.map((project) => (
-          <div className="project-details">
-            <h4>{project.projectTitle}</h4>
-            <p className="project-description">{project.projectDescription}</p>
-            <div className="project-tags tags">
-              {project.projectTags &&
-                project.projectTags.map((projectTag) => (
-                  <div className="tag-details" style={{ background: projectTag.color }} key={projectTag._id}>
-                    <h4>{projectTag.title}</h4>
-                  </div>
-                ))}
+          <Link to={`/project/${project._id}`}>
+            <div className="project-details">
+              <h4>{project.projectTitle}</h4>
+              <p className="project-description">{project.projectDescription}</p>
+              <div className="project-tags tags">
+                {project.projectTags &&
+                  project.projectTags.map((projectTag) => (
+                    <div className="tag-details" style={{ background: projectTag.color }} key={projectTag._id}>
+                      <h4>{projectTag.title}</h4>
+                    </div>
+                  ))}
+              </div>
+              <span onClick={() => removeProjectHandle(project)} className="material-icons">
+                close
+              </span>
             </div>
-            <span onClick={() => removeProjectHandle(project)} className="material-icons">
-              close
-            </span>
-          </div>
+          </Link>
         ))}
     </div>
   );

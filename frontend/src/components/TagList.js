@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useTagsContext } from '../hooks/useTagsContext';
 
-import TagDetails from './TagDetails';
+import TagDetail from './TagDetail';
 
 const TagList = () => {
   const { tags, dispatchTags } = useTagsContext();
@@ -19,7 +19,7 @@ const TagList = () => {
     fetchTags();
   }, [dispatchTags]);
 
-  return <div className="tags">{tags && tags.map((tag) => <TagDetails tag={tag} key={tag._id} />)}</div>;
+  return <div className="tags">{tags && tags.map((tag) => <TagDetail tag={tag} key={tag._id} />)}</div>;
 };
 
 export default TagList;

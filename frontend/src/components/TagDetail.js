@@ -1,6 +1,6 @@
 import { useTagsContext } from '../hooks/useTagsContext';
 
-const TagDetails = ({ tag }) => {
+const TagDetail = ({ tag }) => {
   const { tags, dispatchTags } = useTagsContext();
 
   const handleClick = async (e) => {
@@ -34,4 +34,4 @@ const TagDetails = ({ tag }) => {
   );
 };
 
-export default TagDetails;
+export default TagDetail;

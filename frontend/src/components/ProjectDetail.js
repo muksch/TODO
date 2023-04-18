@@ -1,9 +1,11 @@
 import { useProjectsContext } from '../hooks/useProjectsContext';
+import ProjectTags from './ProjectTags';
+import { useParams } from 'react-router-dom';
 
-const ProjectDetail = ({ project }) => {
+const ProjectDetailContent = ({ filteredProject }) => {
   const { dispatchProjects } = useProjectsContext();
   const removeProjectHandle = async (e) => {
-    const response = await fetch(`api/projects/${project._id}`, {
+    const response = await fetch(`api/projects/${filteredProject._id}`, {
       method: 'DELETE',
     });
 
@@ -13,42 +15,33 @@ const ProjectDetail = ({ project }) => {
     }
   };
 
-  const removeTagHandle = async (id) => {
-    project.projectTags = project.projectTags.filter((t) => t._id !== id);
-    const response = await fetch(`api/projects/${project._id}`, {
-      method: 'PATCH',
-      body: JSON.stringify(project),
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
-
-    if (response.ok) {
-      const json = await response.json();
-      dispatchProjects({ type: 'UPDATE_PROJECT', payload: json });
-    }
-  };
-
   return (
     <div className="project-details">
-      <h4>{project.projectTitle}</h4>
-      <p className="project-description">{project.projectDescription}</p>
+      <h4>{filteredProject.projectTitle}</h4>
+      <p className="project-description">{filteredProject.projectDescription}</p>
       <div className="project-tags tags">
-        {project.projectTags &&
-          project.projectTags.map((projectTag) => (
-            <div className="tag-details" style={{ background: projectTag.color }} key={projectTag._id}>
-              <h4>{projectTag.title}</h4>
-              <span onClick={() => removeTagHandle(projectTag._id)} className="material-icons">
-                close
-              </span>
-            </div>
-          ))}
+        <ProjectTags project={filteredProject} />
       </div>
       <span onClick={removeProjectHandle} className="material-icons">
         close
       </span>
     </div>
   );
+};
+
+const ProjectDetail = ({ project }) => {
+  const { projects } = useProjectsContext();
+  const { projectId } = useParams();
+
+  const getProject = (id, projectsArr) => {
+    let project;
+    projectsArr ? (project = projectsArr.filter((p) => p._id === id)) : (project = []);
+    return project[0];
+  };
+
+  const filteredProject = getProject(projectId, projects);
+
+  return filteredProject ? <ProjectDetailContent filteredProject={filteredProject} key={filteredProject._id} /> : <div className="error-message">No such a project</div>;
 };
 
 export default ProjectDetail;
