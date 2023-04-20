@@ -1,10 +1,10 @@
 import { useProjectsContext } from '../hooks/useProjectsContext';
 
-const ProjectTagDetail = (project, projectTag) => {
-  const { dispatchProjects } = useProjectsContext;
+const ProjectTagDetail = ({ project, projectTag }) => {
+  const { dispatchProjects } = useProjectsContext();
   const removeTagHandle = async (id) => {
     project.projectTags = project.projectTags.filter((t) => t._id !== id);
-    const response = await fetch(`api/projects/${project._id}`, {
+    const response = await fetch(`/api/projects/${project._id}`, {
       method: 'PATCH',
       body: JSON.stringify(project),
       headers: {
@@ -19,7 +19,7 @@ const ProjectTagDetail = (project, projectTag) => {
   };
   return (
     <div className="project-tag-detail">
-      <div className="tag-details" style={{ background: projectTag.color }} key={projectTag._id}>
+      <div className="tag-details" style={{ background: projectTag.color }}>
         <h4>{projectTag.title}</h4>
         <span onClick={() => removeTagHandle(projectTag._id)} className="material-icons">
           close

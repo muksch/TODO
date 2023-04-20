@@ -20,7 +20,7 @@ const ProjectDetailContent = ({ filteredProject }) => {
       <h4>{filteredProject.projectTitle}</h4>
       <p className="project-description">{filteredProject.projectDescription}</p>
       <div className="project-tags tags">
-        <ProjectTags project={filteredProject} />
+        <ProjectTags project={filteredProject} key={filteredProject._id} />
       </div>
       <span onClick={removeProjectHandle} className="material-icons">
         close

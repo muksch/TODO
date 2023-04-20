@@ -19,7 +19,7 @@ const ProjectList = () => {
       <h2>My projects</h2>
       {projects &&
         projects.map((project) => (
-          <Link to={`/project/${project._id}`}>
+          <Link to={`/project/${project._id}`} key={project._id}>
             <div className="project-details">
               <h4>{project.projectTitle}</h4>
               <p className="project-description">{project.projectDescription}</p>
