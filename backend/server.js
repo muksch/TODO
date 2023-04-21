@@ -6,6 +6,7 @@ const app = express();
 const mongoose = require('mongoose');
 const tagRoutes = require('./routes/tags');
 const projectsRoutes = require('./routes/projects.js');
+const userRoutes = require('./routes/user.js');
 
 // ======= START middleware =======
 // get access to request data
@@ -20,6 +21,7 @@ app.use((req, res, next) => {
 // routes
 app.use('/api/tags', tagRoutes);
 app.use('/api/projects', projectsRoutes);
+app.use('/api/user', projectsRoutes);
 // ======= END middleware =======
 
 // connect to DB
