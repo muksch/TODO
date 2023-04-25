@@ -1,7 +1,9 @@
 import { useProjectsContext } from '../hooks/useProjectsContext';
+import { useAuthContext } from '../hooks/useAuthContext';
 
 const ProjectTagDetail = ({ project, projectTag }) => {
   const { dispatchProjects } = useProjectsContext();
+  const { user } = useAuthContext();
   const removeTagHandle = async (id) => {
     project.projectTags = project.projectTags.filter((t) => t._id !== id);
     const response = await fetch(`/api/projects/${project._id}`, {
@@ -9,6 +11,7 @@ const ProjectTagDetail = ({ project, projectTag }) => {
       body: JSON.stringify(project),
       headers: {
         'Content-Type': 'application/json',
+        Authorization: `Baerer ${user.token}`,
       },
     });
 

@@ -2,7 +2,8 @@ const Tag = require('../models/tagModel');
 
 // get all tags
 const getTags = async (req, res) => {
-  const tags = await Tag.find({}).sort({ order: 1 });
+  const user_id = req.user._id;
+  const tags = await Tag.find({ user_id }).sort({ order: 1 });
 
   res.status(200).json(tags);
 };
@@ -33,7 +34,8 @@ const createTag = async (req, res) => {
 
   // add doc to DB
   try {
-    const tag = await Tag.create({ title, order, color });
+    const user_id = req.user._id;
+    const tag = await Tag.create({ title, order, color, user_id });
     res.status(200).json(tag);
   } catch (error) {
     res.status(400).json({ error: error.message });
@@ -55,6 +57,7 @@ const deleteTag = async (req, res) => {
 const updateOrder = async (req, res) => {
   const tags = req.body;
   try {
+    const user_id = req.user._id;
     for (let i = 0; i < tags.length; i++) {
       const { _id, order } = tags[i];
       const tag = await Tag.findByIdAndUpdate(_id, { order }, { new: true });
@@ -62,7 +65,7 @@ const updateOrder = async (req, res) => {
         throw new Error(`Tag with ID ${_id} not found.`);
       }
     }
-    const updatedTags = await Tag.find({}).sort({ order: 1 });
+    const updatedTags = await Tag.find({ user_id }).sort({ order: 1 });
     res.status(200).json(updatedTags);
   } catch (error) {
     res.status(400).json({ error: error.message });

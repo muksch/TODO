@@ -1,8 +1,10 @@
 import { useEffect, useState } from 'react';
 import { useTagsContext } from '../hooks/useTagsContext';
+import { useAuthContext } from '../hooks/useAuthContext';
 
 const TagForm = () => {
   const { tags, dispatchTags } = useTagsContext();
+  const { user } = useAuthContext();
 
   const [title, setTitle] = useState('');
   const [order, setOrder] = useState('');
@@ -40,6 +42,7 @@ const TagForm = () => {
       body: JSON.stringify(tag),
       headers: {
         'Content-Type': 'application/json',
+        Authorization: `Baerer ${user.token}`,
       },
     });
     const json = await response.json();
@@ -59,15 +62,19 @@ const TagForm = () => {
   };
 
   return (
-    <form className="create" onSubmit={handleSubmit}>
-      <h3>Add a New Tag</h3>
+    <>
+      {user && (
+        <form className="create" onSubmit={handleSubmit}>
+          <h3>Add a New Tag</h3>
 
-      <label>Title:</label>
-      <input type="text" onChange={(e) => setTitle(e.target.value)} value={title} className={emptyFields.includes('title') ? 'error' : ''} />
+          <label>Title:</label>
+          <input type="text" onChange={(e) => setTitle(e.target.value)} value={title} className={emptyFields.includes('title') ? 'error' : ''} />
 
-      <button>Add Tag</button>
-      {error && <div className="error">{error}</div>}
-    </form>
+          <button>Add Tag</button>
+          {error && <div className="error">{error}</div>}
+        </form>
+      )}
+    </>
   );
 };
 

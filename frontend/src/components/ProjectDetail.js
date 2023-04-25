@@ -1,12 +1,17 @@
 import { useProjectsContext } from '../hooks/useProjectsContext';
 import ProjectTags from './ProjectTags';
 import { useParams } from 'react-router-dom';
+import { useAuthContext } from '../hooks/useAuthContext';
 
 const ProjectDetailContent = ({ filteredProject }) => {
+  const { user } = useAuthContext();
   const { dispatchProjects } = useProjectsContext();
   const removeProjectHandle = async (e) => {
     const response = await fetch(`api/projects/${filteredProject._id}`, {
       method: 'DELETE',
+      headers: {
+        Authorization: `Baerer ${user.token}`,
+      },
     });
 
     if (response.ok) {

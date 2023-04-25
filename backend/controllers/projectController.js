@@ -2,7 +2,8 @@ const Project = require('../models/projectModel');
 
 // get all projects
 const getProjects = async (req, res) => {
-  const projects = await Project.find({}).sort({ updatedAt: 1 });
+  const user_id = req.user._id;
+  const projects = await Project.find({ user_id }).sort({ updatedAt: 1 });
   res.status(200).json(projects);
 };
 
@@ -32,7 +33,8 @@ const createProject = async (req, res) => {
 
   // add doc to DB
   try {
-    const project = await Project.create({ projectTitle, projectDescription, projectTags });
+    const user_id = req.user._id;
+    const project = await Project.create({ projectTitle, projectDescription, projectTags, user_id });
     res.status(200).json(project);
   } catch (error) {
     res.status(400).json({ error: error.message });

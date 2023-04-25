@@ -1,7 +1,12 @@
 const express = require('express');
 const { getTag, getTags, createTag, deleteTag, updateOrder } = require('../controllers/tagController');
 
+const requireAuth = require('../middleware/requireAuth');
+
 const router = express.Router();
+
+// require auth for all routes
+router.use(requireAuth);
 
 // GET all tags
 router.get('/', getTags);

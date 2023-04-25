@@ -1,23 +1,29 @@
 import { useProjectsContext } from '../hooks/useProjectsContext';
 import { useTagsContext } from '../hooks/useTagsContext';
 import { useParams } from 'react-router-dom';
+import { useAuthContext } from '../hooks/useAuthContext';
 
 const TagDetail = ({ tag }) => {
   const { tags, dispatchTags } = useTagsContext();
   const { projects, dispatchProjects } = useProjectsContext();
   const { projectId } = useParams();
+  const { user } = useAuthContext();
 
   const handleDelete = async (e) => {
     const updatedTags = tags.filter((t) => t._id !== tag._id).map((t, i) => ({ ...t, order: i + 1 }));
-    const response = await fetch('api/tags/' + tag._id, {
+    const response = await fetch('/api/tags/' + tag._id, {
       method: 'DELETE',
+      headers: {
+        Authorization: `Baerer ${user.token}`,
+      },
     });
 
     if (response.ok) {
-      const updateResponse = await fetch('api/tags/updateOrder', {
+      const updateResponse = await fetch('/api/tags/updateOrder', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          Authorization: `Baerer ${user.token}`,
         },
         body: JSON.stringify(updatedTags),
       });
@@ -29,7 +35,6 @@ const TagDetail = ({ tag }) => {
   };
 
   const assignTagHandle = async () => {
-    // console.log(projects[0]);
     const getProject = (id, projectsArr) => {
       let project;
       projectsArr ? (project = projectsArr.filter((p) => p._id === id)) : (project = []);
@@ -49,6 +54,7 @@ const TagDetail = ({ tag }) => {
       body: JSON.stringify(filteredProject),
       headers: {
         'Content-Type': 'application/json',
+        Authorization: `Baerer ${user.token}`,
       },
     });
 

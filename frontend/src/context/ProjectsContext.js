@@ -3,6 +3,9 @@ import { createContext, useReducer } from 'react';
 export const ProjectsContext = createContext();
 
 export const projectsReducer = (state, action) => {
+  if (!state.projects || !Array.isArray(state.projects)) {
+    state.projects = [];
+  }
   switch (action.type) {
     case 'SET_PROJECTS':
       return {

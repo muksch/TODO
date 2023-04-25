@@ -50,6 +50,7 @@ userSchema.statics.login = async function (email, password) {
   }
 
   const user = await this.findOne({ email });
+  console.log(user);
 
   if (!user) {
     throw Error('Invalid login credentials');
@@ -60,6 +61,8 @@ userSchema.statics.login = async function (email, password) {
   if (!match) {
     throw Error('Invalid login credentials');
   }
+
+  return user;
 };
 
 module.exports = mongoose.model('User', userSchema);

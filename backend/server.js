@@ -21,7 +21,7 @@ app.use((req, res, next) => {
 // routes
 app.use('/api/tags', tagRoutes);
 app.use('/api/projects', projectsRoutes);
-app.use('/api/user', projectsRoutes);
+app.use('/api/user', userRoutes);
 // ======= END middleware =======
 
 // connect to DB
