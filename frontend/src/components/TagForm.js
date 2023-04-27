@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { useTagsContext } from '../hooks/useTagsContext';
 import { useAuthContext } from '../hooks/useAuthContext';
 
@@ -12,22 +12,25 @@ const TagForm = () => {
   const [error, setError] = useState(null);
   const [emptyFields, setEmptyFields] = useState([]);
 
+  const pastels = ['#d68562', '#1eafc7', '#bb942d', '#3aa595', '#a3a09a', '#c9c1a0', '#b54d4d', '#6cc5b5', '#b878d3', '#e01d5f', '#d5c96d', '#f864af', '#5ca778', '#8b5f99', '#0e76a9', '#a4265b', '#4c1d3d', '#0c978d', '#c87815', '#ae6c29'];
+
+  const pastelsRef = useRef(pastels);
+
   useEffect(() => {
     if (tags) {
       setOrder(Object.keys(tags).length + 1);
     }
   }, [tags]);
 
-  let pastels = ['#d68562', '#1eafc7', '#bb942d', '#3aa595', '#a3a09a', '#c9c1a0', '#b54d4d', '#6cc5b5', '#b878d3', '#e01d5f', '#d5c96d', '#f864af', '#5ca778', '#8b5f99', '#0e76a9', '#a4265b', '#4c1d3d', '#0c978d', '#c87815', '#ae6c29'];
   useEffect(() => {
     setColor(() => {
       tags &&
         tags.forEach((tag) => {
-          pastels = pastels.filter((p) => p !== tag.color);
+          pastelsRef.current = pastelsRef.current.filter((p) => p !== tag.color);
         });
 
-      const rndPastelIndex = Math.floor(Math.random() * pastels.length);
-      const rndPastel = pastels[rndPastelIndex];
+      const rndPastelIndex = Math.floor(Math.random() * pastelsRef.current.length);
+      const rndPastel = pastelsRef.current[rndPastelIndex];
       return rndPastel;
     });
   }, [tags]);
