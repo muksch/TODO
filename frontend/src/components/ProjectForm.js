@@ -50,10 +50,10 @@ const ProjectForm = () => {
           <label>Title:</label>
           <br />
           <input type="text" onChange={(e) => setProjectTitle(e.target.value)} value={projectTitle} className={emptyFields.includes('title') ? 'error' : ''} />
-          <br />
+          {/* <br />
           <label>Description:</label>
           <br />
-          <textarea onChange={(e) => setProjectDescription(e.target.value)} value={projectDescription} className={emptyFields.includes('description') ? 'error' : ''} />
+          <textarea onChange={(e) => setProjectDescription(e.target.value)} value={projectDescription} className={emptyFields.includes('description') ? 'error' : ''} /> */}
           <br />
           <button>Add Project</button>
           {error && <div className="error">{error}</div>}

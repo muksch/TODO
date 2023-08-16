@@ -3,10 +3,10 @@ import ProjectForm from './ProjectForm';
 
 const Projects = () => {
   return (
-    <div className="projects">
+    <main className="projects">
       <ProjectList />
       <ProjectForm />
-    </div>
+    </main>
   );
 };
 

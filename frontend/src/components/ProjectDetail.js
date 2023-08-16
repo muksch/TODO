@@ -23,11 +23,12 @@ const ProjectDetailContent = ({ filteredProject }) => {
   return (
     <div className="project-details">
       <h4>{filteredProject.projectTitle}</h4>
-      <p className="project-description">{filteredProject.projectDescription}</p>
+      {/* <p className="project-description">{filteredProject.projectDescription}</p> */}
       <div className="project-tags tags">
-        <ProjectTags project={filteredProject} key={filteredProject._id} />
+        {ProjectTags ? <ProjectTags project={filteredProject} key={filteredProject._id} /> : <p>No tags yet!</p>}
+        {/* <ProjectTags project={filteredProject} key={filteredProject._id} /> */}
       </div>
-      <span onClick={removeProjectHandle} className="material-icons">
+      <span onClick={removeProjectHandle} className="material-icons remove-project-button">
         close
       </span>
     </div>

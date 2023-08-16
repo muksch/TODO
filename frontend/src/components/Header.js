@@ -14,21 +14,27 @@ const Header = () => {
     <header>
       <div className="container">
         <Link to="/">
-          <h1>Drag and Drop</h1>
+          <h1>Check&nbsp;It</h1>
         </Link>
         <nav>
-          {user && (
-            <div>
-              <span>{user.email}</span>
-              <button onClick={handleClick}>Log out</button>
-            </div>
-          )}
-          {!user && (
-            <div>
-              <Link to="/login">Login</Link>
-              <Link to="/signup">Signup</Link>
-            </div>
-          )}
+          <div className="main-links">
+            <Link to="/support">Support Us</Link>
+            <Link to="/about">About</Link>
+          </div>
+          <div className="user-links">
+            {user && (
+              <div>
+                <span>{user.email}</span>
+                <button onClick={handleClick}>Log out</button>
+              </div>
+            )}
+            {!user && (
+              <div>
+                <Link to="/login">Login</Link>
+                <Link to="/signup">Signup</Link>
+              </div>
+            )}
+          </div>
         </nav>
       </div>
     </header>

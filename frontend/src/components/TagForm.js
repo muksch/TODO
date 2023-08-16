@@ -68,12 +68,10 @@ const TagForm = () => {
     <>
       {user && (
         <form className="create" onSubmit={handleSubmit}>
-          <h3>Add a New Tag</h3>
+          {/* <h3>Add a New Tag</h3> */}
+          <input type="text" placeholder="Add a new tag" onChange={(e) => setTitle(e.target.value)} value={title} className={emptyFields.includes('title') ? 'error tag-details' : 'tag-details'} />
 
-          <label>Title:</label>
-          <input type="text" onChange={(e) => setTitle(e.target.value)} value={title} className={emptyFields.includes('title') ? 'error' : ''} />
-
-          <button>Add Tag</button>
+          <button className="material-icons">add</button>
           {error && <div className="error">{error}</div>}
         </form>
       )}

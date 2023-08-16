@@ -3,16 +3,18 @@
 
 /* layout */
 :root {
+  --main: #2d3043;
   --primary: #1aac83;
   --error: #e7195a;
 }
 body {
-  background: #f1f1f1;
+  background: var(--main);
   margin: 0;
   font-family: 'Poppins';
 }
 header {
-  background: #fff;
+  background: var(--main);
+  color: #fff;
 }
 header .container {
   max-width: 1400px;
@@ -23,8 +25,12 @@ header .container {
   justify-content: space-between;
 }
 header a {
-  color: #333;
+  color: #fff;
   text-decoration: none;
+  font-weight: 500;
+}
+header .main-links a {
+  color: #9092a5;
 }
 .pages {
   max-width: 1400px;
@@ -81,14 +87,24 @@ input {
   border-radius: 4px;
   box-sizing: border-box;
 }
-form button {
+form button,
+.remove-project-button {
   background: var(--primary);
   border: 0;
   color: #fff;
   padding: 10px;
   font-family: 'Poppins';
-  border-radius: 4px;
   cursor: pointer;
+  position: absolute;
+  width: 25px;
+  height: 25px;
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  font-weight: 600 !important;
+  font-size: 1rem;
+  right: 25px;
 }
 div.error {
   padding: 10px;
@@ -106,20 +122,33 @@ input.error {
 nav {
   display: flex;
   align-items: center;
+  width: 100%;
+  padding: 0 0 0 50px;
 }
 nav a,
 nav button {
-  margin-left: 10px;
+  margin-left: 20px;
 }
 nav button {
-  background: #fff;
-  color: var(--primary);
-  border: 2px solid var(--primary);
-  padding: 6px 10px;
-  border-radius: 4px;
+  color: var(--main);
+  padding: 8px 30px;
+  border-radius: 15px;
+  border: 0;
   font-family: 'Poppins';
   cursor: pointer;
   font-size: 1em;
+  font-weight: 500;
+  background: #ffffff;
+  transition: all 0.3s ease-in;
+}
+nav button:hover {
+  transform: translateY(-3px);
+}
+nav .main-links {
+  flex-grow: 1;
+}
+nav .main-links a {
+  margin: 0 20px;
 }
 
 /* auth forms */
@@ -156,8 +185,16 @@ form.login {
   /* Support for IE. */
   font-feature-settings: 'liga';
 }
+h2 {
+  color: #fff;
+}
 h4 {
   margin: 0;
+}
+.tag-details h4 {
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 600;
 }
 p {
   margin: 0;
@@ -165,6 +202,11 @@ p {
 .tags {
   display: inline-flex;
   flex-direction: column;
+}
+.project-details .tags {
+  display: inline-flex;
+  flex-direction: row;
+  flex-wrap: wrap;
 }
 .tag-details {
   color: #fff;
@@ -174,10 +216,101 @@ p {
   gap: 10px;
   margin: 10px;
   padding: 10px 20px;
+  border-radius: 23px;
+  min-width: 150px;
+}
+.project-details .tag-details {
+  min-width: unset;
+  margin: 0 5px 5px 0;
+}
+input.tag-details {
+  color: #000;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.taglistName {
+  color: #fff;
+  background: none;
+  margin: 10px;
+  padding: 10px 0;
   border-radius: 18px;
   min-width: 150px;
+  font-size: 1.4rem;
+  font-weight: 500;
+  border: none;
+  -webkit-appearance: none;
+  appearance: none;
+}
+.taglistName:focus,
+.taglistName:active {
+  -webkit-appearance: none;
+  appearance: none;
+  outline: none;
+}
+.customSelect {
+  position: relative;
+}
+.customSelect span::after {
+  content: '';
+  width: 0;
+  height: 0;
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
+  border-top: 6px solid #fff;
+  bottom: 25px;
+  right: 30px;
+  position: absolute;
+}
+.customSelect span:last-of-type:after {
+  transform: rotate(180deg);
+  bottom: 35px;
 }
 
 input.error {
   border: 1px solid red;
+}
+.create {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.tag-details .material-icons {
+  font-weight: 600;
+}
+.page {
+  display: flex;
+  gap: 50px;
+}
+.projects {
+  width: 100%;
+}
+.project-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 30px;
+}
+.project {
+  position: relative;
+  background: #9092a5;
+  border-radius: 23px;
+  padding: 30px;
+  width: calc(((100% - 240px) / 3));
+}
+.project a {
+  text-decoration-line: none;
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+.remove-project-button {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  padding: 0;
+  background: var(--error);
+}
+.project-details {
+  color: #000;
 }

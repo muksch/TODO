@@ -3,10 +3,10 @@ import TagForm from './TagForm';
 
 const Tags = () => {
   return (
-    <div className="tags">
+    <aside className="tags">
       <TagList />
       <TagForm />
-    </div>
+    </aside>
   );
 };
 

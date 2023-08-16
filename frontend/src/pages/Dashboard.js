@@ -3,7 +3,7 @@ import Projects from '../components/Projects';
 
 const Dashboard = () => {
   return (
-    <div className="projects">
+    <div className="page">
       <Tags />
       <Projects />
     </div>

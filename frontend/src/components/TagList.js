@@ -27,7 +27,21 @@ const TagList = () => {
     }
   }, [dispatchTags, user]);
 
-  return <div className="tags">{tags && tags.map((tag) => <TagDetail tag={tag} key={tag._id} />)}</div>;
+  return (
+    <div className="tags-list">
+      <h2>Tags</h2>
+      <div className="customSelect">
+        <select name="taglistName" className="taglistName">
+          <option value="taglist1">Taglist name 1</option>
+          <option value="taglist2">Taglist name 2</option>
+          <option value="taglist3">Taglist name 3</option>
+        </select>
+        <span></span>
+        <span></span>
+      </div>
+      {tags && tags.map((tag) => <TagDetail tag={tag} key={tag._id} />)}
+    </div>
+  );
 };
 
 export default TagList;
