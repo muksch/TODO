@@ -4,6 +4,7 @@
 /* layout */
 :root {
   --main: #2d3043;
+  --main-light: #54597c;
   --primary: #1aac83;
   --error: #e7195a;
 }
@@ -30,7 +31,7 @@ header a {
   font-weight: 500;
 }
 header .main-links a {
-  color: #9092a5;
+  color: var(--main-light);
 }
 .pages {
   max-width: 1400px;
@@ -87,13 +88,14 @@ input {
   border-radius: 4px;
   box-sizing: border-box;
 }
+
 form button,
-.remove-project-button {
+.remove-project-button,
+#new-project span {
   background: var(--primary);
   border: 0;
   color: #fff;
   padding: 10px;
-  font-family: 'Poppins';
   cursor: pointer;
   position: absolute;
   width: 25px;
@@ -105,6 +107,54 @@ form button,
   font-weight: 600 !important;
   font-size: 1rem;
   right: 25px;
+}
+.signup button,
+.login button,
+.create-project button {
+  background: var(--main);
+  border: 0;
+  color: #fff;
+  padding: 10px;
+  cursor: pointer;
+  width: 100%;
+  height: 35px;
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600 !important;
+  font-size: 1rem;
+  margin-top: 30px;
+  border-radius: 4px;
+  overflow: hidden;
+  position: relative;
+  outline: none;
+}
+
+.signup button span,
+.login button span {
+  position: relative;
+  z-index: 1;
+}
+
+.signup button:after,
+.login button:after {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 500px;
+  width: 500px;
+  background: var(--main-light);
+  -webkit-transition: all 0.5s ease-in-out;
+  transition: all 0.5s ease-in-out;
+  -webkit-transform: translateX(483px) translateY(-25%) rotate(45deg);
+  transform: translateX(-98%) translateY(-25%) rotate(45deg);
+}
+
+.signup button:hover:after,
+.login button:hover:after {
+  -webkit-transform: translateX(-9%) translateY(-25%) rotate(45deg);
+  transform: translateX(-9%) translateY(-25%) rotate(45deg);
 }
 div.error {
   padding: 10px;
@@ -129,12 +179,12 @@ nav a,
 nav button {
   margin-left: 20px;
 }
-nav button {
+nav button,
+.projects-header button {
   color: var(--main);
   padding: 8px 30px;
   border-radius: 15px;
   border: 0;
-  font-family: 'Poppins';
   cursor: pointer;
   font-size: 1em;
   font-weight: 500;
@@ -276,6 +326,30 @@ input.error {
   align-items: center;
   justify-content: center;
 }
+.create-project {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: 30%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #0f132f;
+  padding: 50px;
+  border-radius: 23px;
+  color: #fff;
+  width: 90%;
+  max-width: 300px;
+}
+.create-project.show {
+  display: block;
+}
+.create-project button {
+  background: var(--primary);
+  right: 0;
+  margin-top: 0;
+}
+
 .tag-details .material-icons {
   font-weight: 600;
 }
@@ -293,10 +367,14 @@ input.error {
 }
 .project {
   position: relative;
-  background: #9092a5;
+  background: var(--main-light);
   border-radius: 23px;
   padding: 30px;
   width: calc(((100% - 240px) / 3));
+  transition: all 0.3s ease-in;
+}
+.project:hover {
+  transform: translateY(-3px);
 }
 .project a {
   text-decoration-line: none;
@@ -312,5 +390,69 @@ input.error {
   background: var(--error);
 }
 .project-details {
-  color: #000;
+  color: #fff;
+  height: 212px;
+  overflow: hidden;
+  position: relative;
+}
+.project-details .overlay {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background: rgb(255, 255, 255);
+  background: linear-gradient(180deg, #ffffff00 50%, var(--main-light) 100%);
+}
+
+.projects-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.projects-header button {
+  background: none;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  width: auto;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.projects-header button::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 50px;
+  width: 220px;
+  background: var(--primary);
+  -webkit-transition: all 0.5s ease-in-out;
+  transition: all 0.5s ease-in-out;
+  transform: translateX(100%);
+}
+
+.projects-header button:hover::after {
+  transform: translateX(0);
+}
+
+#new-project p {
+  position: relative;
+  z-index: 1;
+}
+
+#new-project span {
+  position: relative;
+  left: 0;
+  margin-left: 10px;
+  box-sizing: border-box;
+  z-index: 1;
+}
+
+.page.blurred {
+  filter: blur(5px) brightness(50%);
+  pointer-events: none;
+  user-select: none;
 }

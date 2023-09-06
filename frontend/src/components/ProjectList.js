@@ -18,16 +18,29 @@ const ProjectList = () => {
       dispatchProjects({ type: 'DELETE_PROJECT', payload: json });
     }
   };
+  const openNewProjectHandle = () => {
+    const createProject = document.querySelector('.create-project');
+    const pages = document.querySelector('.page');
+    createProject.classList.toggle('show');
+    pages.classList.toggle('blurred');
+  };
 
   return (
     <div className="project-list-wrap">
-      <h2>Projects</h2>
+      <div className="projects-header">
+        <h2>My projects</h2>
+        <button id="new-project" onClick={() => openNewProjectHandle()}>
+          <p>Add new project </p>
+          <span className="material-icons plus">add</span>
+        </button>
+      </div>
       <div className="project-list">
         {projects &&
           projects.map((project) => (
             <div className="project" key={project._id}>
               <Link to={`/project/${project._id}`}>
                 <div className="project-details">
+                  <div className="overlay"></div>
                   <h3>{project.projectTitle}</h3>
                   {/* <p className="project-description">{project.projectDescription}</p> */}
                   <div className="project-tags tags">

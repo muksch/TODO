@@ -39,23 +39,34 @@ const ProjectForm = () => {
       console.log(`json: ${json}`);
       dispatchProjects({ type: 'CREATE_PROJECT', payload: json });
     }
+
+    const createProject = document.querySelector('.create-project');
+    const pages = document.querySelector('.page');
+    createProject.classList.toggle('show');
+    pages.classList.toggle('blurred');
+  };
+
+  const closeNewProjectHandle = () => {
+    const createProject = document.querySelector('.create-project');
+    const pages = document.querySelector('.page');
+    createProject.classList.toggle('show');
+    pages.classList.toggle('blurred');
   };
 
   return (
     <>
       {user && (
-        <form className="create" onSubmit={projectSaveHandle}>
+        <form className="create-project" onSubmit={projectSaveHandle}>
+          <span className="material-icons remove-project-button" onClick={() => closeNewProjectHandle()}>
+            close
+          </span>
           <h3>Add a New Project</h3>
-
-          <label>Title:</label>
-          <br />
-          <input type="text" onChange={(e) => setProjectTitle(e.target.value)} value={projectTitle} className={emptyFields.includes('title') ? 'error' : ''} />
+          <input type="text" placeholder="Project mame" onChange={(e) => setProjectTitle(e.target.value)} value={projectTitle} className={emptyFields.includes('title') ? 'error' : ''} />
           {/* <br />
           <label>Description:</label>
           <br />
           <textarea onChange={(e) => setProjectDescription(e.target.value)} value={projectDescription} className={emptyFields.includes('description') ? 'error' : ''} /> */}
-          <br />
-          <button>Add Project</button>
+          <button>Add new project</button>
           {error && <div className="error">{error}</div>}
         </form>
       )}
